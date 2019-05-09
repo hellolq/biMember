@@ -1,6 +1,6 @@
 <template>
     <div class="myHeaderDiv">
-      <div class="myHeaderDivOne myHeaderDivCom">
+      <div class="myHeaderDivOne myHeaderDivCom" @click="clickShopList">
         <span class="spanCom" style="font-size: .6rem;padding-left: .3rem;">▦</span>
         <span class="spanCom" >{{shopName}}</span>
         <span class="spanCom">ⅴ</span>
@@ -32,6 +32,17 @@
         shopName:'广场长沙',
         yearMonth:'2019-04',
         yearMonthCom:'2018-04'
+      }
+    },
+    methods:{
+      clickShopList(){
+        var pushPath = '';
+        if(this.$route.path === '/zbld/shoplist'){
+          pushPath = '/zbld';
+        }else{
+          pushPath = '/zbld/shoplist';
+        }
+        this.$router.push(pushPath);
       }
     }
   }

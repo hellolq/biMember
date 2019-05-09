@@ -1,14 +1,10 @@
 <template>
     <div>
-      <!--<dl class="divdl">
-        <dd class="dldd">
-          <span class="shop_item">全司</span>
-        </dd>
-      </dl>
-      <ShopItem/>-->
       <div class="shopDiv">
         <ul class="shopUl">
-          <li class="shop_item active" shopid="000000">全司</li>
+          <li class="shop_item" shopid="000000"
+              v-bind:class="{active:activeShopId == '000000'}"
+              v-on:click="selectShop({shopId:'000000',shopName:'全司'})">全司</li>
         </ul>
       </div>
 
@@ -18,7 +14,8 @@
           <li class="shop_item" v-for="(item ,index) in temp.shopList"
               v-bind:key="item.shopId"
               v-bind:shopid="item.shopId"
-          >{{item.shopName}}
+              v-bind:class="{active:activeShopId == item.shopId}"
+              v-on:click="selectShop(item)">{{item.shopName}}
           </li>
         </ul>
       </div>
@@ -32,7 +29,13 @@
     name: 'ShopList',
     data(){
       return {
+        activeShopId:'000000',
         allShop:[{shopYt:'广场',shopList:[{shopId:'012813',shopName:'广场长沙'},{shopId:'012823',shopName:'广场长沙'},{shopId:'012833',shopName:'广场长沙'},{shopId:'012843',shopName:'广场长沙'},{shopId:'012853',shopName:'广场长沙'},{shopId:'012863',shopName:'广场长沙'}]}]
+      }
+    },
+    methods:{
+      selectShop:function (item) {
+        this.activeShopId = item.shopId;
       }
     }
 

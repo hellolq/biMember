@@ -1,0 +1,11 @@
+获取屏幕高度
+var h = document.documentElement.clientHeight || document.body.clientHeight;
+
+获取屏幕宽度
+document.body.clientWidth
+
+安装vuex
+npm install --save vuex
+
+存储键值对
+sessionStorage

@@ -1,20 +1,11 @@
 <template>
-  <div>
-    <MyHeader/>
-    <ShopList/>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
-import MyHeader from './components/MyHeader.vue'
-import ShopList from './components/ShopList.vue'
 
 export default {
-  name: 'App',
-  components: {
-    MyHeader,
-    ShopList
-  }
+  name: 'App'
 }
 </script>
 
