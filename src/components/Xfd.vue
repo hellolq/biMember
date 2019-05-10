@@ -4,7 +4,7 @@
     <header class="header_a">
       <i class="i_flag"></i>
       <span class="span_a">会员消费段分布</span>
-      <span class="span_b">近7天消费金额最多<font style="color: red;">5247元</font><b class="b_b">▸</b></span>
+      <span class="span_b"><router-link to="/zbld/sevenMemberList">近7天消费金额最多<font style="color: red;">5247元</font><b class="b_b">▶</b></router-link></span>
     </header>
     <div id="myChartXfd"></div>
     <DetailTable></DetailTable>
@@ -78,9 +78,12 @@
 </script>
 
 <style scoped>
-
+  .router-link-active,a {
+    text-decoration: none;
+    color: #6F6F6F;
+  }
   .b_b{
-    font-size: 20px;
+    font-size: 12px;
   }
   .i_flag {
     height: .6rem;
@@ -94,7 +97,6 @@
     font-weight: normal;
     right: 5px;
     position: absolute;
-    color: #6F6F6F;
   }
   .span_a{
     margin-left: 10px;

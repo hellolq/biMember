@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-bind:style="{height:boxHeight+'px'}" style="overflow-y:scroll">
       <div class="shopDiv">
         <ul class="shopUl">
           <li class="shop_item" shopid="000000"
@@ -19,6 +19,7 @@
           </li>
         </ul>
       </div>
+      <div class="selectShopButton"><span class="selectShopButton_span">确定</span></div>
 
     </div>
 </template>
@@ -29,13 +30,23 @@
     name: 'ShopList',
     data(){
       return {
+        boxHeight:0,
         activeShopId:'000000',
         allShop:[{shopYt:'广场',shopList:[{shopId:'012813',shopName:'广场长沙'},{shopId:'012823',shopName:'广场长沙'},{shopId:'012833',shopName:'广场长沙'},{shopId:'012843',shopName:'广场长沙'},{shopId:'012853',shopName:'广场长沙'},{shopId:'012863',shopName:'广场长沙'}]}]
       }
     },
+    mounted(){
+      this.calBoxHeight();
+    },
     methods:{
       selectShop:function (item) {
         this.activeShopId = item.shopId;
+      },
+      calBoxHeight(){
+        const v_heigth = document.documentElement.clientHeight || document.body.clientHeight;
+        const html = document.getElementById("html");
+        const header_height = parseFloat(html.style.fontSize)*1.4;
+        this.boxHeight = v_heigth - header_height;
       }
     }
 
@@ -43,6 +54,24 @@
 </script>
 
 <style scoped>
+  .selectShopButton {
+    position: absolute;
+    bottom: 0;
+    height: 2rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    border-top: 1px solid #CCCCCC;
+  }
+  .selectShopButton_span {
+    padding: 8px 1.4rem;
+    border-radius: 5px;
+    background-color: #4cd964;
+    color: white;
+    border: 1px solid #4cd964;
+  }
  .active{
    color: white;
    background-color: #00A0E8 !important;

@@ -10,12 +10,12 @@
         <ul>
           <li>
             <span class="liSpanCom">当前月份:</span>
-            <span class="liSpanCom" style="text-align: center">{{yearMonth}}</span>
+            <span class="liSpanCom" style="text-align: center;flex:1.5;">{{yearMonth}}</span>
           </li>
           <li>
             <span class="liSpanCom">对比月份:</span>
-            <span class="liSpanCom" style="text-align: center" >
-              <b id="dateCom">{{yearMonthCom}}</b>
+            <span class="liSpanCom" style="text-align: center;flex:1.5;" >
+            <b id="dateCom">{{yearMonthCom}} ▼</b>
             </span>
           </li>
         </ul>
@@ -25,6 +25,8 @@
 </template>
 
 <script>
+
+
   export default {
     name: 'MyHeader',
     data(){
@@ -34,11 +36,12 @@
         yearMonthCom:'2018-04'
       }
     },
+
     methods:{
       clickShopList(){
         var pushPath = '';
         if(this.$route.path === '/zbld/shoplist'){
-          pushPath = '/zbld';
+          this.$router.go(-1);
         }else{
           pushPath = '/zbld/shoplist';
         }
@@ -87,7 +90,7 @@
  }
 #dateCom{
   border: 1px solid #ffffff;
-  padding: 1px .4rem;
+  padding: 1px .3rem;
   border-radius: 3px;
 }
 </style>

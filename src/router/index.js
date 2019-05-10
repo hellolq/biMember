@@ -8,13 +8,17 @@ import Zbld  from '../views/Zbld'
 import store from '../store'
 import ShopList from '../views/ShopList'
 import ZbldDetail from  '../views/ZbldDetail'
+import SevenMemberList from '../views/SevenMemberList'
 
 
 const router = new VueRouter({
   routes:[
     {path:'/login', component:Login},
     {path:'/zbld', component:Zbld,
-      children:[{path:'shopList',component:ShopList},{path:'zbldDetail',component:ZbldDetail},{path:'',redirect:'zbldDetail'}]},
+      children:[{path:'shopList',component:ShopList},
+        {path:'zbldDetail',component:ZbldDetail},
+        {path:'sevenMemberList',component:SevenMemberList},
+        {path:'',redirect:'zbldDetail'}]},
     {path:'/error', component:Error}
   ]
 });
