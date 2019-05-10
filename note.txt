@@ -25,4 +25,4 @@ CSS奇偶选择器
   .xfd_ul_li:nth-child(even)
 
 日期插件
-npm install vue-datepicker
+npm i vue2-datepick --save

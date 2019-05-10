@@ -15,7 +15,7 @@
           <li>
             <span class="liSpanCom">对比月份:</span>
             <span class="liSpanCom" style="text-align: center;flex:1.5;" >
-            <b id="dateCom">{{yearMonthCom}} ▼</b>
+            <b @click="setDate" id="dateCom">{{yearMonthCom}} ▼</b>
             </span>
           </li>
         </ul>
@@ -46,8 +46,16 @@
           pushPath = '/zbld/shoplist';
         }
         this.$router.push(pushPath);
-      }
+      },
+      setDate(){
+        this.$picker.show({
+          type:'datePicker',
+          onOk: (date) =>{
+            this.yearMonthCom = date.substr(0,7);
+          }
+        });
     }
+  }
   }
 </script>
 
