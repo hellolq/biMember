@@ -1,5 +1,5 @@
 <template>
-    <div class="myHeaderDiv">
+    <div class="myHeaderDiv" id="myHeaderDiv">
       <div class="myHeaderDivOne myHeaderDivCom" @click="clickShopList">
         <span class="spanCom" style="font-size: .6rem;padding-left: .3rem;">▦</span>
         <span class="spanCom" >{{shopName}}</span>

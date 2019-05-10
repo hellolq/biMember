@@ -9,3 +9,17 @@ npm install --save vuex
 
 存储键值对
 sessionStorage
+
+git 命令
+git add .
+git commit -m "First Commit"
+git push  origin master
+
+vue-cli 中使用echarts
+npm install echarts -S
+import echarts from 'echarts'
+Vue.prototype.$echarts = echarts
+
+CSS奇偶选择器
+ .xfd_ul_li:nth-child(odd)
+  .xfd_ul_li:nth-child(even)

@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>Canvas-画弧线</title>	
+</head>
+<body>
+	
+<canvas id="canvas" style="border: 1px solid #aaa; display: block; margin: 50px auto;">
+	当前浏览器不支持canvas，请更换浏览器后再试
+</canvas>
+
+<script>
+	window.onload = function(){
+		var canvas = document.getElementById("canvas");
+		canvas.width = 1024;
+		canvas.height = 768;	
+		var context = canvas.getContext("2d");
+
+		//圆心位置
+	/*	context.beginPath();
+		context.arc(200,200,3,0,2*Math.PI);
+		context.closePath();
+		context.fillStyle = "red";
+		context.fill();
+
+		context.beginPath();
+		context.arc(600,200,3,0,2*Math.PI);
+		context.closePath();
+		context.fillStyle = "red";
+		context.fill();*/
+		
+		
+
+
+		//使用beginPath开始路径，不使用closePath结束路径，这样就不会有线段首尾相连
+
+		context.beginPath();
+		context.arc(200,200,150,0,2*Math.PI);
+		context.stroke();
+
+		context.lineWidth = 26;
+		//context.lineCap = "round";
+		context.strokeStyle ="#6cc751";
+		context.beginPath();
+		context.arc(600,200,150,0.9*Math.PI,1.2*Math.PI);
+		context.stroke();		
+
+		context.lineWidth = 22;
+		context.strokeStyle ="#1cc7d0";
+		context.beginPath();
+		context.arc(600,200,148,1.204*Math.PI,1.6*Math.PI);
+		context.stroke();	
+
+		context.lineWidth = 26;
+		context.strokeStyle ="#ffc845";
+		context.beginPath();
+		context.arc(600,200,150,1.604*Math.PI,1.8*Math.PI);
+		context.stroke();	
+
+		context.lineWidth = 30;
+		context.strokeStyle ="#f48924";
+		context.beginPath();
+		context.arc(600,200,152,1.804*Math.PI,0*Math.PI);
+		context.stroke();
+		
+		context.lineWidth = 26;
+		context.strokeStyle ="#f85a40";
+		context.beginPath();
+		context.arc(600,200,150,0.004*Math.PI,0.1*Math.PI);
+		context.stroke();
+
+	}
+</script>
+
+</body>
+</html>
