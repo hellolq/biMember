@@ -10,13 +10,15 @@ const state = {
 }
 
 const mutations = {
-  ADD_LOGIN_USER({state},data){
+  ADD_LOGIN_USER(state,data){
+    console.log('ADD_LOGIN_USER',state.empId);
     sessionStorage.setItem('empId',data.empId);
     sessionStorage.setItem('empName',data.empName);
     sessionStorage.setItem('isLogin',true);
     state.empId = data.empId;
     state.empName = data.empName;
     state.isLogin = true;
+
   }
 }
 
