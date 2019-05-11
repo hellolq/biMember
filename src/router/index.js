@@ -26,8 +26,9 @@ const router = new VueRouter({
 const whiteList = ['/error','/login'];
 
 router.beforeEach((to,from,next) => {
-
+    console.log("router.beforeEach",store.getters.isLogin);
     if(store.getters.isLogin){
+      console.log("store.getters.isLogin",store.getters.isLogin);
       next();
     }else if (whiteList.indexOf(to.path) > -1) {
       next();

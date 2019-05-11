@@ -6,7 +6,7 @@ Vue.use(Vuex)
 const state = {
   empId:'',
   empName:'',
-  isLogin:'0'
+  isLogin:false
 }
 
 const mutations = {
@@ -27,6 +27,7 @@ const actions = {
 }
 
 const getters = {
+
   isLogin(state){
     if(!state.isLogin ){
         state.empId = sessionStorage.getItem("empId");

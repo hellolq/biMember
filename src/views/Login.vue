@@ -1,13 +1,13 @@
 <template>
  <div>
-   login
+   正在登陆，请稍后....
  </div>
 </template>
 
 <script>
   export default {
     name: 'Login',
-    created () {
+    mounted () {
       this.authorizeByEmpId();
     },
     methods:{

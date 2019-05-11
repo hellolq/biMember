@@ -1,3 +1,8 @@
+登陆地址:
+http://192.168.12.208:8080/#/login?empId=1000063573
+http://localhost:8080/#/login?empId=1000063573
+
+----------------------------------------------------------------------------
 获取屏幕高度
 var h = document.documentElement.clientHeight || document.body.clientHeight;
 

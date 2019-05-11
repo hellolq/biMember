@@ -226,6 +226,10 @@
 </script>
 
 <style scoped>
+  .xfd_ul_li_div_ul_li_span
+  > b:nth-child(1){
+      color: #999997;
+  }
   .xfd_ul_li > div:nth-child(3){
     border-right: 1px solid #DDDDDD;
   }
