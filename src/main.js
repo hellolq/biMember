@@ -17,7 +17,15 @@ new Vue({
   components: { App },
   template: '<App/>',
   router,
-  store
+  store,
+  mounted () {
+    this.resizeFontsize();
+  },
+  methods:{
+    resizeFontsize() {
+      document.documentElement.style.fontSize = document.documentElement.clientWidth / 375 * 37.5 + 'px';
+    }
+  }
 })
 
 
