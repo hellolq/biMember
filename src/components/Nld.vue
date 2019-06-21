@@ -15,16 +15,40 @@
 
   export default {
     name: 'Nld',
+    props:['ty'],
     data(){
       return {
-        xAxisData:["18岁以下","18-24岁","25-34岁","35-44岁","45-55岁","55岁以上"],
-        seriesData:[5, 20, 36, 10, 10, 20]
+        xAxisData:[],
+        seriesData:[],
+        xbData:[]
+      }
+    },
+    watch:{
+      ty(){
+        this.getAgeDurMap();
       }
     },
     mounted(){
-      this.drawEchart();
+      this.getAgeDurMap();
     },
     methods:{
+      getAgeDurMap(){
+        var formData = new FormData();
+        formData.append('shopId', this.$store.state.activeShopId);
+        formData.append('ty', this.ty);
+        let vm = this;
+        this.$axios.post('/ajax_getAgeDurMap.action', formData).then(function (res) {
+          let resultBck = res.data.rsData;
+          let seriesData = [resultBck.one,resultBck.two,resultBck.thr,resultBck.four,resultBck.five,resultBck.six,0,0,0,0,0];
+          vm.seriesData = seriesData;
+          let sexList = [{name:'男',value:resultBck.man},{name:'女',value:resultBck.woman}];
+          vm.xbData = sexList;
+          vm.drawEchart();
+        }, function (res) {
+          //vList
+          console.log('error');
+        });
+      },
       drawEchart(){
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('myChart'));
@@ -55,7 +79,7 @@
               {
                 'type':'category',
                 'axisLabel':{'interval':0,rotate:-40},
-                'data':["18岁以下","18-24岁","25-34岁","35-44岁","45-55岁","55岁以上"],
+                'data':["18岁以下","18-24岁","25-34岁","35-44岁","45-55岁","55岁以上","","","","",""],
                 splitLine: {show: false}
               }
             ],
@@ -95,16 +119,8 @@
           options: [
             {
               series: [
-                {data: [{name:'18岁以下',value:84.11},
-                    {name:'18-24岁',value:84.21},
-                    {name:'25-34岁',value:956.84},
-                    {name:'35-44岁',value:197.8},
-                    {name:'45-55岁',value:374.69},
-                    {name:'55岁以上',value:374.69}]},
-                {data: [
-                    {name: '男', value: 100},
-                    {name: '女', value: 200}
-                  ]}
+                {data: this.seriesData},
+                {data: this.xbData}
               ]
             },
 

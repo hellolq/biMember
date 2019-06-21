@@ -2,23 +2,28 @@
     <div>
       <ul class="mm_ul">
         <!--♂-->
-        <li class="mm_ul_name"><i class="mm_ul_xb">♀</i>李四</li>
-        <li class="mm_ul_age">25岁</li>
+        <li class="mm_ul_name">
+          <i v-if="man.sex == '0'" class="mm_ul_xb">♀</i>
+          <i v-if="man.sex == '1'"  class="mm_ul_xb">♂</i>
+          {{man.name}}</li>
+        <li class="mm_ul_age">{{man.age}}岁</li>
         <li class="mm_ul_bri">
           <span class="mm_ul_tel_span">出生日期</span>
-          <span>1993-12-03</span>
+          <span>{{man.brithday}}</span>
         </li>
         <li class="mm_ul_tel">
           <span class="mm_ul_tel_span">手机</span>
-          <span>13926285065</span>
+          <span>{{man.tel}}</span>
         </li>
         <li class="mm_ul_time">
           <span class="mm_ul_tel_span">最后消费时间</span>
-          <span>2019-01-01</span>
+          <span>{{man.time}}</span>
         </li>
       </ul>
 
-      <DetailTable></DetailTable>
+      <DetailTable
+        :res="res"
+      ></DetailTable>
 
     </div>
 </template>
@@ -27,8 +32,30 @@
   import DetailTable from '../components/DetailTable'
   export default {
     name: 'MemberMessage',
+    props:['man'],
+    data(){
+      return {
+        res:[]
+      }
+    },
     components:{
       DetailTable
+    },
+    mounted(){
+      this.ajax_getHyidDetalTable();
+    },
+    methods:{
+      ajax_getHyidDetalTable(){
+        var formData = new FormData();
+        formData.append('hyid', this.man.hyid);
+        let vm = this;
+        this.$axios.post('/ajax_getHyidDetalTable.action', formData).then(res => {
+          var resultBck = res.data.rsData;
+          vm.res = resultBck;
+        }, function (res) {
+          console.log('error');
+        });
+      }
     }
   }
 </script>

@@ -1,7 +1,10 @@
 登陆地址:
-http://192.168.12.208:8080/#/login?empId=1000063573
-http://localhost:8080/#/login?empId=1000063573
+http://192.168.12.208:8070/#/login?empId=1000063573
+http://localhost:8070/#/login?empId=1000063573
+http://10.12.32.213:8060/#/login?empId=1000063573
+http://10.12.32.213:8080/OAWSSMS/bhDay/test.action
 
+http://00b1b29.all123.net/
 ----------------------------------------------------------------------------
 获取屏幕高度
 var h = document.documentElement.clientHeight || document.body.clientHeight;
@@ -31,3 +34,6 @@ CSS奇偶选择器
 
 日期插件
 npm i vue2-datepick --save
+
+解决浏览器报错
+npm install --save babel-polyfill

@@ -4,10 +4,19 @@
     <header class="header_a">
       <i class="i_flag"></i>
       <span class="span_a">会员消费段分布</span>
-      <span class="span_b"><router-link to="/zbld/sevenMemberList">近7天消费金额最多<font style="color: red;">5247元</font><b class="b_b">▶</b></router-link></span>
+
+      <span class="span_b" @click="toSevenMemberList()">
+<!--
+        <router-link to="/zbld/sevenMemberList">近7天消费金额最多<font style="color: red;">{{maxSale}}元</font><b class="b_b">▶</b></router-link>
+-->
+        近7天消费金额最多<font style="color: red;">{{maxSale}}元</font><b class="b_b">▶</b>
+      </span>
+
     </header>
     <div id="myChartXfd"></div>
-    <DetailTable></DetailTable>
+    <DetailTable
+      :res="res"
+    ></DetailTable>
 
   </div>
 </template>
@@ -17,13 +26,78 @@
   import DetailTable from '../components/DetailTable'
   export default {
     name: 'Xfd',
+    props:['ty'],
+    data(){
+      return {
+        res:[],
+        tagList:[],
+        manList:[],
+        womanList:[],
+        maxSale:0
+      }
+    },
     components:{
       DetailTable
     },
+    watch:{
+      ty(){
+        this.getDetialTable();
+        this.getXfdMap();
+      }
+    },
     mounted(){
-      this.drawEchart();
+
+      this.getDetialTable();
+      this.getXfdMap();
+      this.ajax_seventDayMaxSale();
     },
     methods:{
+      toSevenMemberList(){
+        this.$router.push({ path: '/zbld/sevenMemberList', query: { ty: this.ty }});
+      },
+      ajax_seventDayMaxSale(){
+        var formData = new FormData();
+        formData.append('ty', this.ty);
+        formData.append('shopId',this.$store.state.activeShopId);
+        let vm = this;
+        this.$axios.post('/ajax_seventDayMaxSale.action', formData).then(function (res) {
+          let resultBck = res.data.rsData;
+          vm.maxSale = resultBck.xsje;
+        }, function (res) {
+          console.log('error');
+        });
+      },
+      getXfdMap(){
+        var formData = new FormData();
+        formData.append('ty', this.ty);
+        formData.append('shopId',this.$store.state.activeShopId);
+        let vm = this;
+        this.$axios.post('/ajax_getXfdMap.action', formData).then(function (res) {
+          let resultBck = res.data.rsData;
+          //vm.tagList = resultBck.tagList;
+          let manList = [resultBck.man.one,resultBck.man.two,resultBck.man.thr,resultBck.man.four,resultBck.man.five,resultBck.man.six];
+          let womanList = [resultBck.woman.one,resultBck.woman.two,resultBck.woman.thr,resultBck.woman.four,resultBck.woman.five,resultBck.woman.six];
+
+          vm.manList = manList;
+          vm.womanList = womanList;
+
+          vm.drawEchart();
+        }, function (res) {
+          console.log('error');
+        });
+      },
+      getDetialTable(){
+        var formData = new FormData();
+        formData.append('ty', this.ty);
+        formData.append('shopId',this.$store.state.activeShopId);
+        let vm = this;
+        this.$axios.post('/ajax_getDetailTable.action', formData).then(function (res) {
+          let resultBck = res.data.rsData;
+          vm.res = resultBck;
+        }, function (res) {
+          console.log('error');
+        });
+      },
       drawEchart(){
         // 基于准备好的dom，初始化echarts实例
         let myChart = this.$echarts.init(document.getElementById('myChartXfd'))
@@ -43,6 +117,7 @@
           xAxis: {
             'axisLabel':{'interval':0,rotate:-40},
             data: ["0-199元","200-499元","500-799元","800-1000元","1000-4999元","5000元以上"]
+            //data:this.tagList
           },
           yAxis: [
             {
@@ -59,18 +134,20 @@
                 color:global_.member_level_color.man
               }
             },
-            data: [5, 20, 36, 10, 10, 20]
+            //data: [5, 20, 36, 10, 10, 20]
+            data:this.manList
           },{
-          name: '女',
+            name: '女',
             type: 'bar',
             barWidth : 18,
             itemStyle:{
-            normal:{
-              color:global_.member_level_color.woman
-            }
-          },
-          data: [5, 20, 36, 10, 10, 20]
-        }]
+              normal:{
+                color:global_.member_level_color.woman
+              }
+            },
+            //data: [5, 20, 36, 10, 10, 20]
+            data:this.womanList
+          }]
         });
       }
     }

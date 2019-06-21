@@ -31,12 +31,25 @@
     name: 'MyHeader',
     data(){
       return {
-        shopName:'广场长沙',
-        yearMonth:'2019-04',
-        yearMonthCom:'2018-04'
+        shopName:'-',
+        yearMonth:'-',
+        yearMonthCom:'-'
       }
     },
-
+    mounted(){
+      this.shopName = this.$store.state.activeShopName;
+      let time = new Date();
+      let year = time.getFullYear();
+      let month = (time.getMonth()+1);
+      this.yearMonth = year+'-'+month;
+      this.yearMonthCom = (year-1)+'-'+month;
+    },
+    watch:{
+      '$store.state.activeShopId'(n,o){
+        this.shopName = this.$store.state.activeShopName;
+        this.$router.push('/zbld');
+      }
+    },
     methods:{
       clickShopList(){
         var pushPath = '';

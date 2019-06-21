@@ -1,5 +1,6 @@
 <template>
     <div id="zbidBox" v-bind:style="{height:boxHeight+'px'}">
+      <SelectDl></SelectDl>
       <MemberDesc></MemberDesc>
       <QdFx></QdFx>
     </div>
@@ -7,6 +8,7 @@
 
 <script>
   import MemberDesc from '../components/MemberDesc'
+  import SelectDl from '../components/SelectDl'
   import QdFx from '../components/QdFx'
   export default {
     name: 'ZbldDetail',
@@ -28,7 +30,8 @@
     },
     components:{
       MemberDesc,
-      QdFx
+      QdFx,
+      SelectDl
     }
   }
 </script>

@@ -5,11 +5,16 @@ import App from './App'
 import router from './router'
 import store from './store'
 import echarts from 'echarts'
+import axios from 'axios'
 import Calendar from 'vue2-datepick';
+
+axios.defaults.baseURL = '/OAWSSMS';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 Vue.use(Calendar);
 Vue.config.productionTip = false
 Vue.prototype.$echarts = echarts
+Vue.prototype.$axios = axios
 
 /* eslint-disable no-new */
 new Vue({

@@ -4,7 +4,7 @@
     <header class="header_a">
       <i class="i_flag"></i>
       <span class="span_a">会员复购率</span>
-      <span class="span_b">4月对比3月复购人数占比有所下滑</span>
+      <span class="span_b">{{message}}</span>
     </header>
 
     <ul class="hyfgl_ul">
@@ -14,13 +14,13 @@
         <span class="hyfgl_ul_li_span">占当月购买人数</span>
         <span class="hyfgl_ul_li_span">上月占比</span>
       </li>
-      <li class="hyfgl_ul_li">
-        <span class="hyfgl_ul_li_span">2次</span>
-        <span class="hyfgl_ul_li_span">65489</span>
-        <span class="hyfgl_ul_li_span">18.45%</span>
-        <span class="hyfgl_ul_li_span">18.45%</span>
+      <li class="hyfgl_ul_li" v-for="(temp,inex) in res" v-bind:key="temp.name">
+        <span class="hyfgl_ul_li_span">{{temp.name}}</span>
+        <span class="hyfgl_ul_li_span">{{temp.hyrs}}</span>
+        <span class="hyfgl_ul_li_span">{{temp.hfzb}}</span>
+        <span class="hyfgl_ul_li_span">{{temp.zl}}</span>
       </li>
-      <li class="hyfgl_ul_li">
+      <!--<li class="hyfgl_ul_li">
         <span class="hyfgl_ul_li_span">3次</span>
         <span class="hyfgl_ul_li_span">65489</span>
         <span class="hyfgl_ul_li_span">18.45%</span>
@@ -37,7 +37,7 @@
         <span class="hyfgl_ul_li_span">65489</span>
         <span class="hyfgl_ul_li_span">18.45%</span>
         <span class="hyfgl_ul_li_span">18.45%</span>
-      </li>
+      </li>-->
     </ul>
 
   </div>
@@ -45,7 +45,10 @@
 
 <script>
   export default {
-    name: 'Hyfgl'
+    name: 'Hyfgl',
+    props:['res','message']
+
+
   }
 </script>
 

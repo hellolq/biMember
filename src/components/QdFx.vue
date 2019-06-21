@@ -1,17 +1,17 @@
 <template>
     <div class="qdfxDiv">
       <ul class="qdfxDivUl">
-        <li @click="changeTy('qdfx')" class="qdfxDivUlLi" ty="qdfx" v-bind:class="{active:activeTy == 'qdfx'}">全店分析</li>
-        <li @click="changeTy('xxq')" class="qdfxDivUlLi" ty="xxq" v-bind:class="{active:activeTy == 'xxq'}">新鲜期</li>
-        <li @click="changeTy('wdq')" class="qdfxDivUlLi" ty="wdq" v-bind:class="{active:activeTy == 'wdq'}">稳定期</li>
-        <li @click="changeTy('wxq')" class="qdfxDivUlLi" ty="wxq" v-bind:class="{active:activeTy == 'wxq'}">危险期</li>
-        <li @click="changeTy('smq')" class="qdfxDivUlLi" ty="smq" v-bind:class="{active:activeTy == 'smq'}">睡眠期</li>
-        <li @click="changeTy('yls')" class="qdfxDivUlLi" ty="yls" v-bind:class="{active:activeTy == 'yls'}">已流失</li>
+        <!--<li @click="changeTy('qdfx')" class="qdfxDivUlLi" ty="qdfx" v-bind:class="{active:activeTy == 'qdfx'}">全店分析</li>-->
+        <li @click="changeTy('1')" class="qdfxDivUlLi" ty="1" v-bind:class="{active:activeTy == '1'}">新鲜期</li>
+        <li @click="changeTy('2')" class="qdfxDivUlLi" ty="2" v-bind:class="{active:activeTy == '2'}">稳定期</li>
+        <li @click="changeTy('3')" class="qdfxDivUlLi" ty="3" v-bind:class="{active:activeTy == '3'}">危险期</li>
+        <li @click="changeTy('4')" class="qdfxDivUlLi" ty="4" v-bind:class="{active:activeTy == '4'}">睡眠期</li>
+        <li @click="changeTy('0')" class="qdfxDivUlLi" ty="0" v-bind:class="{active:activeTy == '0'}">已流失</li>
       </ul>
 
-      <Nld></Nld>
-      <Xfd></Xfd>
-      <Hyfgl></Hyfgl>
+      <Nld :ty="activeTy"></Nld>
+      <Xfd :ty="activeTy"></Xfd>
+      <Hyfgl :res="fglData" :message="message"></Hyfgl>
 
     </div>
 </template>
@@ -25,13 +25,45 @@
     components:{
       Nld,Xfd,Hyfgl
     },
+    mounted(){
+      this.getFglData();
+    },
     data(){
       return {
-        activeTy:'qdfx'
+        activeTy:'1',
+        fglData:[],
+        message:''
       }
 
     },
     methods:{
+      getFglData(){
+        var formData = new FormData();
+        formData.append('rq', '20190101');
+        let vm = this;
+        this.$axios.post('/ajax_getFglMap.action', formData).then(res => {
+          var resultBck = res.data.rsData;
+          vm.fglData = resultBck;
+          vm.message = this.getMessage(resultBck[0]);
+        }, function (res) {
+          console.log('error');
+        });
+      },
+      getMessage(item){
+        let preMonth = new Date().getMonth();
+        if(preMonth == 0){
+          preMonth = 1;
+        }
+        let thisMonth = preMonth + 1;
+
+        let result = "";
+        if(item.age > item.srhyrs){
+          result = thisMonth+'月对比'+preMonth+'月复购人数占比有所上升'
+        }else{
+          result = thisMonth+'月对比'+preMonth+'月复购人数占比有所下滑'
+        }
+        return result;
+      },
       changeTy(ty){
         this.activeTy = ty;
       }

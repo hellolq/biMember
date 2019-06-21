@@ -4,10 +4,13 @@
     <header class="header_a">
       <i class="i_flag"></i>
       <span class="span_a">近7日生日会员</span>
-      <span class="span_b">共3人</span>
+      <span class="span_b">共 {{count}} 人</span>
     </header>
-    <MemberMessage></MemberMessage>
-    <MemberMessage></MemberMessage>
+    <MemberMessage v-for="(temp,index) in manList" v-bind:key="temp.hyid"
+    :man="temp"></MemberMessage>
+    <div class="get-more-div">
+      <span class="get-more" @click="getMore()">点击加载更多</span>
+    </div>
   </div>
 </template>
 
@@ -17,13 +20,58 @@
     name: 'SevenMemberList',
     data(){
       return{
-        boxHeight:0
+        boxHeight:0,
+        num:0,
+        count:0,
+        ty:'',
+        manList:[]
+      }
+    },
+    watch:{
+      '$store.state.activeShopId'(n,o){
+        this.getSevenData();
+        this.getSevenCount();
       }
     },
     mounted(){
+      this.ty = this.$route.query.ty;
       this.calBoxHeight();
+      this.getSevenData();
+      this.getSevenCount();
     },
     methods:{
+      getMore(){
+        let num = this.num;
+        this.num = num + 5;
+        this.getSevenData();
+      },
+      getSevenCount(){
+        var formData = new FormData();
+        //formData.append('rq', '20190101');
+        formData.append('shopId', this.$store.state.activeShopId);
+        formData.append('ty', this.ty);
+        let vm = this;
+        this.$axios.post('/ajax_getSevenManCount.action', formData).then(res => {
+          let resultBck = res.data.rsData;
+          vm.count = resultBck;
+        }, function (res) {
+          console.log('error');
+        });
+      },
+      getSevenData(){
+        var formData = new FormData();
+        formData.append('shopId', this.$store.state.activeShopId);
+        formData.append('num', this.num);
+        formData.append('ty', this.ty);
+        let vm = this;
+        this.$axios.post('/ajax_getSevenBriMap.action', formData).then(res => {
+          var resultBck = res.data.rsData;
+          let now = vm.manList;
+          vm.manList = now.concat(resultBck);
+        }, function (res) {
+          console.log('error');
+        });
+      },
       calBoxHeight(){
         const v_heigth = document.documentElement.clientHeight || document.body.clientHeight;
         const html = document.getElementById("html");
@@ -62,5 +110,12 @@
     padding: .3rem;
     font-weight: bold;
     position: relative;
+  }
+  .get-more-div {
+    text-align: center;
+    padding: 8px;
+  }
+  .get-more{
+    text-align: center;
   }
 </style>
