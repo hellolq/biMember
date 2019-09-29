@@ -13,7 +13,8 @@
       }
     },
     mounted () {
-      this.empId = this.$route.query.empId;
+      this.empId = this.$route.query.empLoginid;
+      //  this.$route.query.empId;
       this.authorizeByEmpId();
     },
     methods:{
@@ -40,8 +41,8 @@
            if(resultBck.errorMsg == 'ok'){
 
              if(resultBck.role != 'ZBLD'){
-               activeShopId = '012823';
-               activeShopName = '广场长沙';
+               //activeShopId = '012823';
+               //activeShopName = '广场长沙';
              }
              var data = {empId:vm.empId,role:resultBck.role,
                activeShopId:activeShopId,activeShopName:activeShopName,

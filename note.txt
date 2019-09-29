@@ -1,8 +1,11 @@
 登陆地址:
-http://192.168.12.208:8070/#/login?empId=1000063573
-http://localhost:8070/#/login?empId=1000063573
-http://10.12.32.213:8060/#/login?empId=1000063573
+http://192.168.12.208:8070/#/login?empLoginid=1000063573
+http://localhost:8070/#/login?empLoginid=1000063573
+http://10.12.32.213:8060/#/login?empLoginid=1000063573
+
 http://10.12.32.213:8080/OAWSSMS/bhDay/test.action
+
+http://10.12.32.213:8080/OAWSSMS/MobileSSOA/salesReport/bhhy/index.html#/login?empLoginid=1000063573
 
 http://00b1b29.all123.net/
 ----------------------------------------------------------------------------
@@ -37,3 +40,18 @@ npm i vue2-datepick --save
 
 解决浏览器报错
 npm install --save babel-polyfill
+
+
+发布注意事项：
+1.浏览器访问地址：
+http://10.12.32.213:8080/OAWSSMS/MobileSSOA/salesReport/bhhy/index.html#/login?empId=1000063573
+2.配置config 文件下 index.js 中的 assetsPublicPath;
+3.配置config 文件下 index.js 中的proxyTable
+4.配置main.js 中的axios.defaults.baseURL
+
+打包：
+npm run build
+
+
+
+http://10.12.32.213:8080/OAWSSMS/bhhy/ajax_getBhhyTable.action

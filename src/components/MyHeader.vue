@@ -12,12 +12,14 @@
             <span class="liSpanCom">当前月份:</span>
             <span class="liSpanCom" style="text-align: center;flex:1.5;">{{yearMonth}}</span>
           </li>
-          <li>
+
+         <!-- <li>
             <span class="liSpanCom">对比月份:</span>
             <span class="liSpanCom" style="text-align: center;flex:1.5;" >
             <b @click="setDate" id="dateCom">{{yearMonthCom}} ▼</b>
             </span>
-          </li>
+          </li>-->
+
         </ul>
       </div>
 

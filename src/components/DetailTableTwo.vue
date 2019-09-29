@@ -11,20 +11,20 @@
       <div class="xfd_ul_li_div">
         <ul class="xfd_ul_li_div_ul">
           <li class="xfd_ul_li_div_ul_li">
-            <span class="xfd_ul_li_div_ul_li_span">{{temp.zlName}}</span>
+            <span class="xfd_ul_li_div_ul_li_span">{{temp[0].zlname}}</span>
             <span class="xfd_ul_li_div_ul_li_span">
                 <b>购物次数</b>
-                <b>{{temp.zlGwcs}}次</b>
+                <b>{{temp[0].xsbs}}次</b>
               </span>
           </li>
           <li class="xfd_ul_li_div_ul_li">
               <span class="xfd_ul_li_div_ul_li_span">
                 <b class="xfd_ul_li_div_ul_li_span_b">平均客单价</b>
-                <b class="xfd_ul_li_div_ul_li_span_b">{{temp.zlKdj}}元</b>
+                <b class="xfd_ul_li_div_ul_li_span_b">{{temp[0].kdj}}元</b>
               </span>
             <span class="xfd_ul_li_div_ul_li_span">
                 <b class="xfd_ul_li_div_ul_li_span_b">渗透率</b>
-                <b class="xfd_ul_li_div_ul_li_span_b">{{temp.zlStrs}}人</b>
+                <b class="xfd_ul_li_div_ul_li_span_b">{{temp[0].gmrs}}人</b>
               </span>
           </li>
         </ul>
@@ -33,20 +33,20 @@
       <div class="xfd_ul_li_div">
         <ul class="xfd_ul_li_div_ul">
           <li class="xfd_ul_li_div_ul_li">
-            <span class="xfd_ul_li_div_ul_li_span">{{temp.sbName}}</span>
+            <span class="xfd_ul_li_div_ul_li_span">{{temp[1].zlname}}</span>
             <span class="xfd_ul_li_div_ul_li_span">
                 <b>购物次数</b>
-                <b>{{temp.sbGwcs}}次</b>
+                <b>{{temp[1].xsbs}}次</b>
               </span>
           </li>
           <li class="xfd_ul_li_div_ul_li">
               <span class="xfd_ul_li_div_ul_li_span">
                 <b class="xfd_ul_li_div_ul_li_span_b">平均客单价</b>
-                <b class="xfd_ul_li_div_ul_li_span_b">{{temp.sbKdj}}元</b>
+                <b class="xfd_ul_li_div_ul_li_span_b">{{temp[1].kdj}}元</b>
               </span>
             <span class="xfd_ul_li_div_ul_li_span">
                 <b class="xfd_ul_li_div_ul_li_span_b">渗透率</b>
-                <b class="xfd_ul_li_div_ul_li_span_b">{{temp.sbStrs}}人</b>
+                <b class="xfd_ul_li_div_ul_li_span_b">{{temp[1].gmrs}}人</b>
               </span>
           </li>
         </ul>
@@ -55,20 +55,20 @@
       <div class="xfd_ul_li_div">
         <ul class="xfd_ul_li_div_ul">
           <li class="xfd_ul_li_div_ul_li">
-            <span class="xfd_ul_li_div_ul_li_span">{{temp.sbNameTwo}}</span>
+            <span class="xfd_ul_li_div_ul_li_span">{{temp[2].zlname}}</span>
             <span class="xfd_ul_li_div_ul_li_span">
                 <b>购物次数</b>
-                <b>{{temp.sbGwcsTwo}}次</b>
+                <b>{{temp[2].xsbs}}次</b>
               </span>
           </li>
           <li class="xfd_ul_li_div_ul_li">
               <span class="xfd_ul_li_div_ul_li_span">
                 <b class="xfd_ul_li_div_ul_li_span_b">平均客单价</b>
-                <b class="xfd_ul_li_div_ul_li_span_b">{{temp.sbKdjTwo}}元</b>
+                <b class="xfd_ul_li_div_ul_li_span_b">{{temp[2].kdj}}元</b>
               </span>
             <span class="xfd_ul_li_div_ul_li_span">
                 <b class="xfd_ul_li_div_ul_li_span_b">渗透率</b>
-                <b class="xfd_ul_li_div_ul_li_span_b">{{temp.sbStrsTwo}}人</b>
+                <b class="xfd_ul_li_div_ul_li_span_b">{{temp[2].gmrs}}人</b>
               </span>
           </li>
         </ul>
@@ -83,7 +83,7 @@
 
 <script>
   export default {
-    name: 'DetailTable',
+    name: 'DetailTableTwo',
     props:['res']
   }
 </script>

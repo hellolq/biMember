@@ -132,119 +132,110 @@ import global_ from '../components/tools/Global'
       }
     },
     mounted(){
-      this.initCircle();
+      //this.initCircle();
       //this.initData();
       this.initMonth();
+      this.getmonth();
     },
     watch:{
       '$store.state.dl'(n,o){
         //this.initData();
         this.initMonth();
+        this.getmonth();
       }
     },
     methods:{
+      getmonth(){
+        var formData = new FormData();
+        formData.append('shopId',this.$store.state.activeShopId);
+        formData.append('dl',this.$store.state.dl);
+        let vm = this;
+        this.$axios.post('/ajax_selectHeadMonth.action', formData).then(res => {
+          var resultBck = res.data.rsData;
+          //console.log(resultBck);
+          if(resultBck != null){
+            let temp = resultBck[0];
+            vm.item.xzhyrs = temp.xzhy;
+            vm.item.pjkdj = temp.pjkdj;
+            vm.item.hfzb = temp.hfzb;
+            vm.item.srhyrs = temp.srhy;
+            vm.item.pc = temp.gwpc;
+          }
+        }, function (res) {
+          console.log('error');
+        });
+      },
       initMonth(){
         var formData = new FormData();
         formData.append('shopId',this.$store.state.activeShopId);
         formData.append('dl',this.$store.state.dl);
         let vm = this;
-        this.$axios.post('/ajax_getMonth.action', formData).then(res => {
+        this.$axios.post('/ajax_selectHead.action', formData).then(res => {
           var resultBck = res.data.rsData;
-          vm.item.hyrs = resultBck.month.hyrs;
-          vm.item.pjkdj = resultBck.month.pjkdj;
-          vm.item.hfzb = resultBck.month.hfzb;
-          vm.item.pc = resultBck.month.pc;
-          vm.item.xzhyrs = resultBck.month.xzhyrs;
-          vm.item.srhyrs = resultBck.month.srhyrs;
-
-          vm.item1.hyrs = resultBck.xxq.hyrs;
-          vm.item1.pjkdj = resultBck.xxq.pjkdj;
-          vm.item1.hfzb = resultBck.xxq.hfzb;
-          vm.item1.pc = resultBck.xxq.pc;
-          vm.item1.srhyrs = resultBck.xxq.srhyrs;
-
-          vm.item2.hyrs = resultBck.wdq.hyrs;
-          vm.item2.pjkdj = resultBck.wdq.pjkdj;
-          vm.item2.hfzb = resultBck.wdq.hfzb;
-          vm.item2.pc = resultBck.wdq.pc;
-          vm.item2.srhyrs = resultBck.wdq.srhyrs;
-
-          vm.item3.hyrs = resultBck.wxq.hyrs;
-          vm.item3.pjkdj = resultBck.wxq.pjkdj;
-          vm.item3.hfzb = resultBck.wxq.hfzb;
-          vm.item3.pc = resultBck.wxq.pc;
-          vm.item3.srhyrs = resultBck.wxq.srhyrs;
-
-          vm.item4.hyrs = resultBck.smq.hyrs;
-          vm.item4.pjkdj = resultBck.smq.pjkdj;
-          vm.item4.hfzb = resultBck.smq.hfzb;
-          vm.item4.pc = resultBck.smq.pc;
-          vm.item4.srhyrs = resultBck.smq.srhyrs;
-
-          vm.item0.hyrs = resultBck.yls.hyrs;
-          vm.item0.pjkdj = resultBck.yls.pjkdj;
-          vm.item0.hfzb = resultBck.yls.hfzb;
-          vm.item0.pc = resultBck.yls.pc;
-          vm.item0.srhyrs = resultBck.yls.srhyrs;
-
+          let zhyrs = 0;
+          for(var i=0;i<resultBck.length;i++){
+            let temp = resultBck[i];
+            if(temp.smzq == '1'){
+              zhyrs = zhyrs + temp.hyrs;
+              vm.item1.hyrs = temp.hyrs;
+              vm.circle_level.xxq = temp.hyrs;
+              vm.item1.pjkdj = temp.pjkdj;
+              vm.item1.hfzb = temp.hfzb;
+              vm.item1.pc = temp.gwpc;
+              vm.item1.srhyrs = temp.srhy;
+            }
+            if(temp.smzq == '2'){
+              zhyrs = zhyrs + temp.hyrs;
+              vm.item2.hyrs = temp.hyrs;
+              vm.circle_level.wdq = temp.hyrs;
+              vm.item2.pjkdj = temp.pjkdj;
+              vm.item2.hfzb = temp.hfzb;
+              vm.item2.pc = temp.gwpc;
+              vm.item2.srhyrs = temp.srhy;
+            }
+            if(temp.smzq == '3'){
+              zhyrs = zhyrs + temp.hyrs;
+              vm.item3.hyrs = temp.hyrs;
+              vm.circle_level.smq = temp.hyrs;
+              vm.item3.pjkdj = temp.pjkdj;
+              vm.item3.hfzb = temp.hfzb;
+              vm.item3.pc = temp.gwpc;
+              vm.item3.srhyrs = temp.srhy;
+            }
+            if(temp.smzq == '4'){
+              zhyrs = zhyrs + temp.hyrs;
+              vm.item4.hyrs = temp.hyrs;
+              vm.circle_level.wxq = temp.hyrs;
+              vm.item4.pjkdj = temp.pjkdj;
+              vm.item4.hfzb = temp.hfzb;
+              vm.item4.pc = temp.gwpc;
+              vm.item4.srhyrs = temp.srhy;
+            }
+            if(temp.smzq == '0'){
+              zhyrs = zhyrs + temp.hyrs;
+              vm.item0.hyrs = temp.hyrs;
+              vm.circle_level.yls = temp.hyrs;
+              vm.item0.pjkdj = temp.pjkdj;
+              vm.item0.hfzb = temp.hfzb;
+              vm.item0.pc = temp.gwpc;
+              vm.item0.srhyrs = temp.srhy;
+            }
+          }
+          vm.item.hyrs = zhyrs ;
+          vm.circle.hyrs = zhyrs ;
+          vm.initCircle();
         }, function (res) {
           console.log('error');
         });
-      },
-      initData(){
-        var formData = new FormData();
-        formData.append('shopId',this.$store.state.activeShopId);
-        formData.append('dl',this.$store.state.dl);
-        let vm = this;
-        this.$axios.post('/ajax_getBhhyDTOItem.action', formData).then(res => {
-          var resultBck = res.data.rsData;
-          //item:{hyrs:0,pjkdj:0, hfzb:0, pc:0, xzhyrs:0, srhyrs:0},
-          vm.item.hyrs = resultBck.month.hyrs;
-          vm.item.pjkdj = resultBck.month.pjkdj;
-          vm.item.hfzb = resultBck.month.hfzb;
-          vm.item.pc = resultBck.month.pc;
-          vm.item.xzhyrs = resultBck.month.xzhyrs;
-          vm.item.srhyrs = resultBck.month.srhyrs;
 
-          vm.item1.hyrs = resultBck.xxq.hyrs;
-          vm.item1.pjkdj = resultBck.xxq.pjkdj;
-          vm.item1.hfzb = resultBck.xxq.hfzb;
-          vm.item1.pc = resultBck.xxq.pc;
-          vm.item1.srhyrs = resultBck.xxq.srhyrs;
-
-          vm.item2.hyrs = resultBck.wdq.hyrs;
-          vm.item2.pjkdj = resultBck.wdq.pjkdj;
-          vm.item2.hfzb = resultBck.wdq.hfzb;
-          vm.item2.pc = resultBck.wdq.pc;
-          vm.item2.srhyrs = resultBck.wdq.srhyrs;
-
-          vm.item3.hyrs = resultBck.wxq.hyrs;
-          vm.item3.pjkdj = resultBck.wxq.pjkdj;
-          vm.item3.hfzb = resultBck.wxq.hfzb;
-          vm.item3.pc = resultBck.wxq.pc;
-          vm.item3.srhyrs = resultBck.wxq.srhyrs;
-
-          vm.item4.hyrs = resultBck.smq.hyrs;
-          vm.item4.pjkdj = resultBck.smq.pjkdj;
-          vm.item4.hfzb = resultBck.smq.hfzb;
-          vm.item4.pc = resultBck.smq.pc;
-          vm.item4.srhyrs = resultBck.smq.srhyrs;
-
-          vm.item0.hyrs = resultBck.yls.hyrs;
-          vm.item0.pjkdj = resultBck.yls.pjkdj;
-          vm.item0.hfzb = resultBck.yls.hfzb;
-          vm.item0.pc = resultBck.yls.pc;
-          vm.item0.srhyrs = resultBck.yls.srhyrs;
-
-        }, function (res) {
-          console.log('error');
-        });
       },
       initCircle(){
         const canvas = document.getElementById("canvas");
+        //canvas.destroyed();
         const context = canvas.getContext("2d");
         const c_width = canvas.width;
         const c_height =  canvas.height;
+        context.clearRect(0,0,c_width,c_height);
         const x = 0.5*c_width;
         const y = c_height-40;
         const radius = 0.8*y;

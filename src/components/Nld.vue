@@ -15,7 +15,7 @@
 
   export default {
     name: 'Nld',
-    props:['ty'],
+    props:['ty','sex','nld'],
     data(){
       return {
         xAxisData:[],
@@ -26,7 +26,16 @@
     watch:{
       ty(){
         this.getAgeDurMap();
-      }
+      },
+      sex(){
+        this.getAgeDurMap();
+      },
+      nld(){
+        this.getAgeDurMap();
+      },
+      '$store.state.dl'(){
+        this.getAgeDurMap();
+     }
     },
     mounted(){
       this.getAgeDurMap();
@@ -35,13 +44,43 @@
       getAgeDurMap(){
         var formData = new FormData();
         formData.append('shopId', this.$store.state.activeShopId);
-        formData.append('ty', this.ty);
+        formData.append('smzq', this.ty);
+        //formData.append('ty', this.ty);
+        formData.append('dl',this.$store.state.dl);
+        formData.append('sex',this.sex.substr(1));
+        formData.append('nld',this.nld.substr(1));
+
         let vm = this;
-        this.$axios.post('/ajax_getAgeDurMap.action', formData).then(function (res) {
+        this.$axios.post('/ajax_selectNld.action', formData).then(function (res) {
           let resultBck = res.data.rsData;
-          let seriesData = [resultBck.one,resultBck.two,resultBck.thr,resultBck.four,resultBck.five,resultBck.six,0,0,0,0,0];
+          let seriesData = [0,0,0,0,0,0,0,0,0,0,0];
+          let sexList = [];
+          //console.log(resultBck[2].shopId);
+          for(var i=0;i<resultBck.length;i++){
+            let temp_obj = resultBck[i];
+            if(temp_obj.nld == '7'){
+              seriesData[0] = temp_obj.hyrs;
+            }
+            if(temp_obj.nld == '8'){
+              seriesData[1] = temp_obj.hyrs;
+            }
+            if(temp_obj.nld == '9'){
+              seriesData[2] = temp_obj.hyrs;
+            }
+            if(temp_obj.nld == '10'){
+              seriesData[3] = temp_obj.hyrs;
+            }
+            if(temp_obj.nld == '11'){
+              seriesData[4] = temp_obj.hyrs;
+            }
+            if(temp_obj.nld == '12'){
+              seriesData[5] = temp_obj.hyrs;
+            }
+            if(temp_obj.shopId == 'sex'){
+              sexList = [{name:'男',value:temp_obj.man},{name:'女',value:temp_obj.woman}];
+            }
+          }
           vm.seriesData = seriesData;
-          let sexList = [{name:'男',value:resultBck.man},{name:'女',value:resultBck.woman}];
           vm.xbData = sexList;
           vm.drawEchart();
         }, function (res) {

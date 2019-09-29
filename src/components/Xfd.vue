@@ -26,7 +26,7 @@
   import DetailTable from '../components/DetailTable'
   export default {
     name: 'Xfd',
-    props:['ty'],
+    props:['ty','sex','nld'],
     data(){
       return {
         res:[],
@@ -43,6 +43,22 @@
       ty(){
         this.getDetialTable();
         this.getXfdMap();
+        this.ajax_seventDayMaxSale();
+      },
+      sex(){
+        this.getXfdMap();
+        this.getDetialTable();
+        this.ajax_seventDayMaxSale();
+      },
+      nld(){
+        this.getXfdMap();
+        this.getDetialTable();
+        this.ajax_seventDayMaxSale();
+      },
+      '$store.state.dl'(){
+        this.getXfdMap();
+        this.getDetialTable();
+        this.ajax_seventDayMaxSale();
       }
     },
     mounted(){
@@ -53,12 +69,17 @@
     },
     methods:{
       toSevenMemberList(){
-        this.$router.push({ path: '/zbld/sevenMemberList', query: { ty: this.ty }});
+        this.$router.push({ path: '/zbld/sevenMemberList',
+            query: { ty: this.ty,sex:this.sex,nld:this.nld }});
       },
       ajax_seventDayMaxSale(){
         var formData = new FormData();
-        formData.append('ty', this.ty);
+        formData.append('smzq', this.ty);
         formData.append('shopId',this.$store.state.activeShopId);
+        formData.append('dl',this.$store.state.dl);
+        formData.append('sex',this.sex.substr(1));
+        formData.append('nld',this.nld.substr(1));
+
         let vm = this;
         this.$axios.post('/ajax_seventDayMaxSale.action', formData).then(function (res) {
           let resultBck = res.data.rsData;
@@ -69,15 +90,57 @@
       },
       getXfdMap(){
         var formData = new FormData();
-        formData.append('ty', this.ty);
+        formData.append('smzq', this.ty);
         formData.append('shopId',this.$store.state.activeShopId);
+        formData.append('dl',this.$store.state.dl);
+        formData.append('sex',this.sex.substr(1));
+        formData.append('nld',this.nld.substr(1));
         let vm = this;
-        this.$axios.post('/ajax_getXfdMap.action', formData).then(function (res) {
+        this.$axios.post('/ajax_selectXfd.action', formData).then(function (res) {
           let resultBck = res.data.rsData;
+          //console.log(resultBck);
           //vm.tagList = resultBck.tagList;
-          let manList = [resultBck.man.one,resultBck.man.two,resultBck.man.thr,resultBck.man.four,resultBck.man.five,resultBck.man.six];
-          let womanList = [resultBck.woman.one,resultBck.woman.two,resultBck.woman.thr,resultBck.woman.four,resultBck.woman.five,resultBck.woman.six];
-
+          let manList = [0,0,0,0,0,0];
+          let womanList = [0,0,0,0,0,0];
+          for(var i=0;i<resultBck.length;i++){
+            let temp = resultBck[i];
+            if(temp.xfd == '13' && temp.sex == '5'  ){
+              manList[0]=temp.hyrs;
+            }
+            if(temp.xfd == '13' && temp.sex == '6' ){
+              womanList[0]=temp.hyrs;
+            }
+            if(temp.xfd == '14' && temp.sex == '5' ){
+              manList[1]=temp.hyrs;
+            }
+            if(temp.xfd == '14' && temp.sex == '6' ){
+              womanList[1]=temp.hyrs;
+            }
+            if(temp.xfd == '15' && temp.sex == '5' ){
+              manList[2]=temp.hyrs;
+            }
+            if(temp.xfd == '15' && temp.sex == '6'){
+              womanList[2]=temp.hyrs;
+            }
+            if(temp.xfd == '16' && temp.sex == '5' ){
+              manList[3]=temp.hyrs;
+            }
+            if(temp.xfd == '16' && temp.sex == '6' ){
+              womanList[3]=temp.hyrs;
+            }
+            if(temp.xfd == '17' && temp.sex == '5' ){
+              manList[4]=temp.hyrs;
+            }
+            if(temp.xfd == '17' && temp.sex == '6' ){
+              womanList[4]=temp.hyrs;
+            }
+            if(temp.xfd == '18' && temp.sex == '5' ){
+              manList[5]=temp.hyrs;
+            }
+            if(temp.xfd == '18' && temp.sex == '6'){
+              womanList[5]=temp.hyrs;
+            }
+          }
           vm.manList = manList;
           vm.womanList = womanList;
 
@@ -88,12 +151,23 @@
       },
       getDetialTable(){
         var formData = new FormData();
-        formData.append('ty', this.ty);
+        formData.append('smzq', this.ty);
         formData.append('shopId',this.$store.state.activeShopId);
+        formData.append('dl',this.$store.state.dl);
+        formData.append('sex',this.sex.substr(1));
+        formData.append('nld',this.nld.substr(1));
         let vm = this;
-        this.$axios.post('/ajax_getDetailTable.action', formData).then(function (res) {
-          let resultBck = res.data.rsData;
-          vm.res = resultBck;
+        vm.res = [
+          { "sbGwcs": 0, "sbGwcsTwo": 0, "sbKdj": 0, "sbKdjTwo": 0, "sbName": "", "sbNameTwo": "", "sbStrs": 0, "sbStrsTwo": 0, "sbXsbs": 0, "sbXsbsTwo": 0, "sbXsje": 0, "sbXsjeTwo": 0, "sbid": "", "sbidTwo": "", "zl": "", "zlGwcs": 0, "zlKdj": 0, "zlName": "", "zlStrs": 0, "zlXsbs": 0, "zlXsje": 0 },
+          { "sbGwcs": 0, "sbGwcsTwo": 0, "sbKdj": 0, "sbKdjTwo": 0, "sbName": "", "sbNameTwo": "", "sbStrs": 0, "sbStrsTwo": 0, "sbXsbs": 0, "sbXsbsTwo": 0, "sbXsje": 0, "sbXsjeTwo": 0, "sbid": "", "sbidTwo": "", "zl": "", "zlGwcs": 0, "zlKdj": 0, "zlName": "", "zlStrs": 0, "zlXsbs": 0, "zlXsje": 0 },
+          { "sbGwcs": 0, "sbGwcsTwo": 0, "sbKdj": 0, "sbKdjTwo": 0, "sbName": "", "sbNameTwo": "", "sbStrs": 0, "sbStrsTwo": 0, "sbXsbs": 0, "sbXsbsTwo": 0, "sbXsje": 0, "sbXsjeTwo": 0, "sbid": "", "sbidTwo": "", "zl": "", "zlGwcs": 0, "zlKdj": 0, "zlName": "", "zlStrs": 0, "zlXsbs": 0, "zlXsje": 0 }
+        ];
+        this.$axios.post('/ajax_selectSpsb.action', formData).then(function (res) {
+          let resList = res.data.rsData;
+          if(resList.length > 0){
+            vm.res = resList;
+          }
+
         }, function (res) {
           console.log('error');
         });

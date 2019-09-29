@@ -9,9 +9,9 @@ import axios from 'axios'
 import Calendar from 'vue2-datepick';
 
 //测试环境打包
-axios.defaults.baseURL = '/OAWSSMS';
+//axios.defaults.baseURL = '/OAWSSMS';
 // 正式环境打包
-//axios.defaults.baseURL = '/OAWSSMS/bhhy';
+axios.defaults.baseURL = '/OAWSSMS/bhhy';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 Vue.use(Calendar);

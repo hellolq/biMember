@@ -11,8 +11,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/OAWSSMS':{
-        target: 'http://10.12.32.107:8080/OAWSSMS/bhhy',
+     '/OAWSSMS':{
+        target: 'http://10.12.32.213:8080/OAWSSMS/bhhy',
         changeOrigin:true,
         pathRewrite:{
           '^/OAWSSMS':''

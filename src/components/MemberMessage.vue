@@ -13,7 +13,8 @@
         </li>
         <li class="mm_ul_tel">
           <span class="mm_ul_tel_span">手机</span>
-          <span>{{man.tel}}</span>
+          <!--<span>{{man.tel}}</span>-->
+          <span><a :href="'tel:' + man.tel">{{man.tel}}</a></span>
         </li>
         <li class="mm_ul_time">
           <span class="mm_ul_tel_span">最后消费时间</span>
@@ -49,8 +50,9 @@
         var formData = new FormData();
         formData.append('hyid', this.man.hyid);
         let vm = this;
-        this.$axios.post('/ajax_getHyidDetalTable.action', formData).then(res => {
+        this.$axios.post('/ajax_selectBhhyDetailTable.action', formData).then(res => {
           var resultBck = res.data.rsData;
+          console.log(resultBck);
           vm.res = resultBck;
         }, function (res) {
           console.log('error');

@@ -11,13 +11,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/OAWSSMS':{
-        target: 'http://10.12.32.107:8080/OAWSSMS/bhhy',
+     /*'/OAWSSMS':{
+        target: 'http://10.12.32.213:8080/OAWSSMS/bhhy',
         changeOrigin:true,
         pathRewrite:{
           '^/OAWSSMS':''
         }
-      }
+      }*/
     },
 
     // Various Dev Server settings
@@ -59,8 +59,8 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-    //assetsPublicPath:'/OAWSSMS/MobileSSOA/salesReport/bhhy',
+    //assetsPublicPath: '/',
+    assetsPublicPath:'/OAWSSMS/MobileSSOA/salesReport/bhhy',
 
     /**
      * Source Maps

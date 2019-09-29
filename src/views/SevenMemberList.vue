@@ -24,6 +24,8 @@
         num:0,
         count:0,
         ty:'',
+        sex:'',
+        nld:'',
         manList:[]
       }
     },
@@ -35,6 +37,8 @@
     },
     mounted(){
       this.ty = this.$route.query.ty;
+      this.sex = this.$route.query.sex;
+      this.nld = this.$route.query.nld;
       this.calBoxHeight();
       this.getSevenData();
       this.getSevenCount();
@@ -49,7 +53,10 @@
         var formData = new FormData();
         //formData.append('rq', '20190101');
         formData.append('shopId', this.$store.state.activeShopId);
-        formData.append('ty', this.ty);
+        formData.append('smzq', this.ty);
+        formData.append('dl',this.$store.state.dl);
+        formData.append('sex',this.sex.substr(1));
+        formData.append('nld',this.nld.substr(1));
         let vm = this;
         this.$axios.post('/ajax_getSevenManCount.action', formData).then(res => {
           let resultBck = res.data.rsData;
@@ -62,7 +69,10 @@
         var formData = new FormData();
         formData.append('shopId', this.$store.state.activeShopId);
         formData.append('num', this.num);
-        formData.append('ty', this.ty);
+        formData.append('smzq', this.ty);
+        formData.append('dl',this.$store.state.dl);
+        formData.append('sex',this.sex.substr(1));
+        formData.append('nld',this.nld.substr(1));
         let vm = this;
         this.$axios.post('/ajax_getSevenBriMap.action', formData).then(res => {
           var resultBck = res.data.rsData;
